@@ -38,7 +38,6 @@ INSERT INTO User (firstname, surname, phone, email, type) VALUES
 ('John', 'Doe', '123456789', 'johndoe@example.com', 'BORROWER'),
 ('Jane', 'Smith', '987654321', 'janesmith@example.com', 'LIBRARIAN');
 
--- Sample data for Book table
 INSERT INTO Book (isbn, title, author, publisher, status) VALUES
 ('9781234567890', 'Book 1', 'Author 1', 'Publisher A', 'AVAILABLE'),
 ('9780987654321', 'Book 2', 'Author 2', 'Publisher B', 'BORROWED');
