@@ -1,9 +1,8 @@
-package com.github.trrine.librarysystem.util;
+package com.github.trrine.librarysystem.database;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class DatabaseInitializer {
@@ -11,10 +10,7 @@ public class DatabaseInitializer {
         // path to sql script
         String scriptPath = "src/main/resources/init_data.sql";
 
-        // database connection details
-        String url = "jdbc:sqlite:src/main/resources/library.db";
-
-        try (Connection conn = DriverManager.getConnection(url);
+        try (Connection conn = DatabaseManager.getConnection();
              Statement stmt = conn.createStatement();
              BufferedReader reader = new BufferedReader(new FileReader(scriptPath))) {
 
