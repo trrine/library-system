@@ -2,14 +2,14 @@ package com.github.trrine.librarysystem.model;
 
 import java.time.LocalDate;
 
-public class Loan {
+public class Borrowing {
     private int userID;
     private int bookNo;
     private LocalDate startDate;
     private LocalDate dueDate;
-    private LoanStatus status;
+    private BorrowingStatus status;
 
-    public Loan(int userID, int bookNo, LocalDate startDate, LocalDate dueDate, LoanStatus status) {
+    public Borrowing(int userID, int bookNo, LocalDate startDate, LocalDate dueDate, BorrowingStatus status) {
         this.userID = userID;
         this.bookNo = bookNo;
         this.startDate = startDate;
@@ -33,7 +33,7 @@ public class Loan {
         return this.dueDate;
     }
 
-    public LoanStatus getStatus() {
+    public BorrowingStatus getStatus() {
         return this.status;
     }
 
@@ -53,7 +53,7 @@ public class Loan {
         this.dueDate = dueDate;
     }
 
-    public void setStatus(LoanStatus status) {
+    public void setStatus(BorrowingStatus status) {
         this.status = status;
     }
 
