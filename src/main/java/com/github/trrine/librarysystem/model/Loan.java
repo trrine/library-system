@@ -3,26 +3,26 @@ package com.github.trrine.librarysystem.model;
 import java.time.LocalDate;
 
 public class Loan {
-    private User borrower;
-    private Book book;
+    private int userID;
+    private int bookNo;
     private LocalDate startDate;
     private LocalDate dueDate;
     private LoanStatus status;
 
-    public Loan(User borrower, Book book, LocalDate startDate, LocalDate dueDate, LoanStatus status) {
-        this.borrower = borrower;
-        this.book = book;
+    public Loan(int userID, int bookNo, LocalDate startDate, LocalDate dueDate, LoanStatus status) {
+        this.userID = userID;
+        this.bookNo = bookNo;
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.status = status;
     }
 
-    public User getBorrower() {
-        return this.borrower;
+    public int getUserID() {
+        return this.userID;
     }
 
-    public Book getBook() {
-        return this.book;
+    public int getBookNo() {
+        return this.bookNo;
     }
 
     public LocalDate getStartDate() {
@@ -37,12 +37,12 @@ public class Loan {
         return this.status;
     }
 
-    public void setBorrower(User borrower) {
-        this.borrower = borrower;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    public void setBookNo(int bookNo) {
+        this.bookNo = bookNo;
     }
 
     public void setStartDate(LocalDate startDate) {
