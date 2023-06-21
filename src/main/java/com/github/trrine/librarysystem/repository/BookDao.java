@@ -153,7 +153,6 @@ public class BookDao implements Dao<Book> {
         String publisher = rs.getString("publisher");
         String statusStr = rs.getString("status");
         BookStatus status = BookStatus.valueOf(statusStr);
-
         return new Book(bookNo, isbn, title, author, publisher, status);
     }
 }
