@@ -21,7 +21,7 @@ public class BookDao implements Dao<Book> {
             stmt.setInt(1, (int) id[0]);
             ResultSet rs = stmt.executeQuery();
 
-            // if a match is found, create a Book object
+            // if a match is found, return a Book object
             if (rs.next()) {
                 Book book = createBookFromResultSet(rs);
                 return Optional.of(book);
@@ -106,7 +106,7 @@ public class BookDao implements Dao<Book> {
             }
         }
 
-        // remove training comma and space
+        // remove trailing comma and space
         sqlBuilder.delete(sqlBuilder.length() - 2, sqlBuilder.length());
 
         // add WHERE clause
