@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
@@ -34,11 +35,45 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
     }
 
     public List<Borrowing> getBorrowingsByUserId(int userId) {
-        return null;
+        List<Borrowing> borrowings = new ArrayList<>();
+        String sql = "SELECT * FROM BORROWING WHERE userID=?";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // set parameter value and execute statement
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                borrowings.add(createBorrowingFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving borrowings: " + e.getMessage());
+        }
+        return borrowings;
     }
 
     public List<Borrowing> getBorrowingsByStatus(String status) {
-        return null;
+        List<Borrowing> borrowings = new ArrayList<>();
+        String sql = "SELECT * FROM BORROWING WHERE status=?";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // set parameter value and execute statement
+            stmt.setString(1, status);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                borrowings.add(createBorrowingFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving borrowings: " + e.getMessage());
+        }
+        return borrowings;
     }
 
     public void updateBorrowingStatus(int borrowingId, String status) {
@@ -62,7 +97,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
         }
     }
 
-    private Borrowing createLoanFromResultSet(ResultSet rs) throws SQLException {
+    private Borrowing createBorrowingFromResultSet(ResultSet rs) throws SQLException {
         int userID = rs.getInt("userID");
         int bookNo = rs.getInt("bookNo");
         LocalDate startDate = rs.getDate("startDate").toLocalDate();

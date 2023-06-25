@@ -101,16 +101,16 @@ public class UserDaoImpl implements UserDao<User> {
 
     @Override
     public boolean authenticateUser(String username, String password) {
-        String sql = "SELECT password_hash FROM users WHERE username = ?";
+        String sql = "SELECT password_hash FROM users WHERE username=?";
 
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
             stmt.setString(1, username);
-            ResultSet resultSet = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-            if (resultSet.next()) {
-                String hashedPassword = resultSet.getString("password_hash");
+            if (rs.next()) {
+                String hashedPassword = rs.getString("password_hash");
                 return BCrypt.checkpw(password, hashedPassword);
             }
         } catch (SQLException e) {
