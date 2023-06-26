@@ -11,7 +11,7 @@ public interface BorrowingDao<T> {
 
     List<Borrowing> getBorrowingsByStatus(String status);
 
-    void updateBorrowingStatus(int borrowingId, String status);
+    void updateBorrowing(Borrowing borrowing);
 
     void deleteBorrowing(Borrowing borrowing);
 }

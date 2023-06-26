@@ -76,8 +76,22 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
         return borrowings;
     }
 
-    public void updateBorrowingStatus(int borrowingId, String status) {
+    public void updateBorrowing(Borrowing borrowing) {
+        String sql = "UPDATE Borrowing SET dueDate=?, status=? WHERE userID=? AND bookNo=?";
 
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // set parameter values and execute statement
+            stmt.setString(1, borrowing.getDueDate().toString());
+            stmt.setString(2, borrowing.getStatus().name());
+            stmt.setInt(3, borrowing.getUserID());
+            stmt.setInt(4, borrowing.getBookNo());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Error updating borrowing: " + e.getMessage());
+        }
     }
 
     public void deleteBorrowing(Borrowing borrowing) {
