@@ -1,6 +1,5 @@
-package com.github.trrine.librarysystem.daoimpl;
+package com.github.trrine.librarysystem.dao;
 
-import com.github.trrine.librarysystem.dao.UserDao;
 import com.github.trrine.librarysystem.database.DatabaseManager;
 import com.github.trrine.librarysystem.model.User;
 import com.github.trrine.librarysystem.model.UserType;
