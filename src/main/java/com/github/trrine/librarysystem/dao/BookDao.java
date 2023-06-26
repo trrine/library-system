@@ -9,13 +9,7 @@ public interface BookDao<T> {
 
     Book getBookByBookNo(int bookNo);
 
-    List<Book> getBooksByISBN(String isbn);
-
-    List<Book> getBooksByTitle(String title);
-
-    List<Book> getBooksByAuthor(String author);
-
-    List<Book> getBooksByStatus(String status);
+    List<Book> searchBooks(String isbn, String title, String author, String status);
 
     void updateBook(Book book);
 

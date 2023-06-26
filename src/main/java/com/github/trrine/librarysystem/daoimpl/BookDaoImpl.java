@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookDaoImpl implements BookDao<Book> {
@@ -53,20 +54,29 @@ public class BookDaoImpl implements BookDao<Book> {
         return null;
     }
 
-    public List<Book> getBooksByISBN(String isbn) {
-        return null;
-    }
+    public List<Book> searchBooks(String isbn, String title, String author, String status) {
+        List<Book> books = new ArrayList<>();
+        String sql = "SELECT * FROM Book WHERE isbn LIKE ? AND title like ? AND author LIKE ? AND status LIKE ?";
 
-    public List<Book> getBooksByTitle(String title) {
-        return null;
-    }
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    public List<Book> getBooksByAuthor(String author) {
-        return null;
-    }
+            // set parameter values and execute statement
+            stmt.setString(1, "%" + isbn + "%");
+            stmt.setString(2, "%" + title + "%");
+            stmt.setString(3, "%" + author + "%");
+            stmt.setString(4, "%" + status + "%");
+            ResultSet rs = stmt.executeQuery();
 
-    public List<Book> getBooksByStatus(String status) {
-        return null;
+            // retrieving all books meeting criteria
+            while (rs.next()) {
+                books.add(createBookFromResultSet(rs));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error retrieving books: " + e.getMessage());
+        }
+        return books;
     }
 
     public void updateBook(Book book) {

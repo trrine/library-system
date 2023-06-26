@@ -45,7 +45,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
             stmt.setInt(1, userId);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 borrowings.add(createBorrowingFromResultSet(rs));
             }
 
@@ -66,7 +66,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
             stmt.setString(1, status);
             ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 borrowings.add(createBorrowingFromResultSet(rs));
             }
 
