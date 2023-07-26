@@ -4,7 +4,7 @@ import com.github.trrine.librarysystem.model.Book;
 
 import java.util.List;
 
-public interface LibrarianService<T> {
+public interface LibrarianService {
     void insertBook(Book book);
 
     List<Book> listAllBooks();

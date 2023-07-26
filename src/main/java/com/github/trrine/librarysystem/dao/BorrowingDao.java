@@ -4,10 +4,10 @@ import com.github.trrine.librarysystem.model.Borrowing;
 
 import java.util.List;
 
-public interface BorrowingDao<T> {
+public interface BorrowingDao {
     void createBorrowing(Borrowing borrowing);
 
-    List<Borrowing> getBorrowingsByUserId(int userId);
+    List<Borrowing> getBorrowingsByUserID(String userID);
 
     List<Borrowing> getBorrowingsByStatus(String status);
 

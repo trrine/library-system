@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDaoImpl implements BookDao<Book> {
+public class BookDaoImpl implements BookDao {
 
     public void createBook(Book book) {
         String sql = "INSERT INTO Book (isbn, title, author, publisher, status) VALUES (?, ?, ?, ?, ?)";

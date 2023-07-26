@@ -3,13 +3,13 @@ package com.github.trrine.librarysystem.model;
 import java.time.LocalDate;
 
 public class Borrowing {
-    private int userID;
+    private String userID;
     private int bookNo;
     private LocalDate startDate;
     private LocalDate dueDate;
     private BorrowingStatus status;
 
-    public Borrowing(int userID, int bookNo, LocalDate startDate, LocalDate dueDate, BorrowingStatus status) {
+    public Borrowing(String userID, int bookNo, LocalDate startDate, LocalDate dueDate, BorrowingStatus status) {
         this.userID = userID;
         this.bookNo = bookNo;
         this.startDate = startDate;
@@ -17,7 +17,7 @@ public class Borrowing {
         this.status = status;
     }
 
-    public int getUserID() {
+    public String getUserID() {
         return this.userID;
     }
 
@@ -37,7 +37,7 @@ public class Borrowing {
         return this.status;
     }
 
-    public void setUserID(int userID) {
+    public void setUserID(String userID) {
         this.userID = userID;
     }
 

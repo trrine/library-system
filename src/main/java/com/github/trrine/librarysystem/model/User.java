@@ -1,17 +1,15 @@
 package com.github.trrine.librarysystem.model;
 
 public class User {
-    private int ID;
-    private String username;
+    private String userID;
     private String firstname;
     private String surname;
     private String phone;
     private String email;
     private UserType type;
 
-    public User(int ID, String username, String firstname, String surname, String phone, String email, UserType type) {
-        this.ID = ID;
-        this.username = username;
+    public User(String userID, String firstname, String surname, String phone, String email, UserType type) {
+        this.userID = userID;
         this.firstname = firstname;
         this.surname = surname;
         this.phone = phone;
@@ -19,12 +17,8 @@ public class User {
         this.type = type;
     }
 
-    public int getID() {
-        return this.ID;
-    }
-
-    public String getUsername() {
-        return this.username;
+    public String getUserID() {
+        return this.userID;
     }
 
     public String getFirstname() {
@@ -47,12 +41,8 @@ public class User {
         return this.type;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserID(String userID) {
+        this.userID = userID;
     }
 
     public void setFirstname(String firstname) {

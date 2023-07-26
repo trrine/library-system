@@ -2,14 +2,14 @@ package com.github.trrine.librarysystem.dao;
 
 import com.github.trrine.librarysystem.model.User;
 
-public interface UserDao<T> {
+public interface UserDao {
     void createUser(User user, String password);
 
-    User getUserById(int id);
+    User getUserByUserID(String userID);
 
     void updateUser(User user);
 
-    void deleteUser(int id);
+    void deleteUser(String userID);
 
-    boolean authenticateUser(String username, String password);
+    boolean authenticateUser(String userID, String password);
 }

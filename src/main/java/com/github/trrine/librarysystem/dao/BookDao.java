@@ -4,7 +4,7 @@ import com.github.trrine.librarysystem.model.Book;
 
 import java.util.List;
 
-public interface BookDao<T> {
+public interface BookDao {
     void createBook(Book book);
 
     Book getBookByBookNo(int bookNo);

@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.Statement;
 
-public class TableDeleter {
+public class DatabaseReset {
     public static void main(String[] args) {
         // path to sql script
         String scriptPath = "src/main/resources/drop_tables.sql";

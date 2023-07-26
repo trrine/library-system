@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
+public class BorrowingDaoImpl implements BorrowingDao {
 
     public void createBorrowing(Borrowing borrowing) {
         String sql = "INSERT INTO Borrowing (userID, bookNo, startDate, dueDate, status) VALUES (?, ?, ?, ?, ?)";
@@ -21,7 +21,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // set parameter values and execute statement
-            stmt.setInt(1, borrowing.getUserID());
+            stmt.setString(1, borrowing.getUserID());
             stmt.setInt(2, borrowing.getBookNo());
             stmt.setString(3, borrowing.getStartDate().toString());
             stmt.setString(4, borrowing.getDueDate().toString());
@@ -33,7 +33,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
         }
     }
 
-    public List<Borrowing> getBorrowingsByUserId(int userId) {
+    public List<Borrowing> getBorrowingsByUserID(String userID) {
         List<Borrowing> borrowings = new ArrayList<>();
         String sql = "SELECT * FROM BORROWING WHERE userID=?";
 
@@ -41,7 +41,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // set parameter value and execute statement
-            stmt.setInt(1, userId);
+            stmt.setString(1, userID);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -84,7 +84,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
             // set parameter values and execute statement
             stmt.setString(1, borrowing.getDueDate().toString());
             stmt.setString(2, borrowing.getStatus().name());
-            stmt.setInt(3, borrowing.getUserID());
+            stmt.setString(3, borrowing.getUserID());
             stmt.setInt(4, borrowing.getBookNo());
             stmt.executeUpdate();
 
@@ -100,7 +100,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // set parameter values and execute statement
-            stmt.setInt(1, borrowing.getUserID());
+            stmt.setString(1, borrowing.getUserID());
             stmt.setInt(2, borrowing.getBookNo());
             stmt.setString(3, borrowing.getStartDate().toString());
             stmt.executeUpdate();
@@ -111,7 +111,7 @@ public class BorrowingDaoImpl implements BorrowingDao<Borrowing> {
     }
 
     private Borrowing createBorrowingFromResultSet(ResultSet rs) throws SQLException {
-        int userID = rs.getInt("userID");
+        String userID = rs.getString("userID");
         int bookNo = rs.getInt("bookNo");
         LocalDate startDate = rs.getDate("startDate").toLocalDate();
         LocalDate dueDate = rs.getDate("dueDate").toLocalDate();

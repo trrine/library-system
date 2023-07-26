@@ -10,10 +10,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class UserDaoImpl implements UserDao<User> {
+public class UserDaoImpl implements UserDao {
 
     public void createUser(User user, String password) {
-        String sql = "INSERT INTO User (username, password_hash, firstname, surname, phone, email, type)  VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO User (userID, password_hash, firstname, surname, phone, email, type)  VALUES (?, ?, ?, ?, ?)";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -25,7 +25,7 @@ public class UserDaoImpl implements UserDao<User> {
             String hashedPassword = BCrypt.hashpw(password, salt);
 
             // set parameter values and execute prepared statement
-            stmt.setString(1, user.getUsername());
+            stmt.setString(1, user.getUserID());
             stmt.setString(2, hashedPassword);
             stmt.setString(3, user.getFirstname());
             stmt.setString(4, user.getSurname());
@@ -40,14 +40,14 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public User getUserById(int id) {
-        String sql = "SELECT * FROM User WHERE id=?";
+    public User getUserByUserID(String userID) {
+        String sql = "SELECT * FROM User WHERE userID=?";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // set parameter value and execute prepared statement
-            stmt.setInt(1, id);
+            stmt.setString(1, userID);
             ResultSet rs = stmt.executeQuery();
 
             // if a match is found, return a User object
@@ -64,7 +64,7 @@ public class UserDaoImpl implements UserDao<User> {
 
     @Override
     public void updateUser(User user) {
-        String sql = "UPDATE User SET firstname=?, surname=?, phone=?, email=? WHERE id=?";
+        String sql = "UPDATE User SET firstname=?, surname=?, phone=?, email=? WHERE userID=?";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -74,7 +74,7 @@ public class UserDaoImpl implements UserDao<User> {
             stmt.setString(2, user.getSurname());
             stmt.setString(3, user.getPhone());
             stmt.setString(4, user.getEmail());
-            stmt.setInt(5, user.getID());
+            stmt.setString(5, user.getUserID());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -83,14 +83,14 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public void deleteUser(int id) {
-        String sql = "DELETE FROM User WHERE id=?";
+    public void deleteUser(String userID) {
+        String sql = "DELETE FROM User WHERE userID=?";
 
         try (Connection conn = DatabaseManager.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             // set parameter value and execute statement
-            stmt.setInt(1, id);
+            stmt.setString(1, userID);
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -99,13 +99,13 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     @Override
-    public boolean authenticateUser(String username, String password) {
-        String sql = "SELECT password_hash FROM users WHERE username=?";
+    public boolean authenticateUser(String userID, String password) {
+        String sql = "SELECT password_hash FROM users WHERE userID=?";
 
         try (Connection connection = DatabaseManager.getConnection();
              PreparedStatement stmt = connection.prepareStatement(sql)) {
 
-            stmt.setString(1, username);
+            stmt.setString(1, userID);
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -119,14 +119,13 @@ public class UserDaoImpl implements UserDao<User> {
     }
 
     private User createUserFromResultSet(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String username = rs.getString("username");
+        String userID = rs.getString("userID");
         String firstname = rs.getString("firstname");
         String surname = rs.getString("surname");
         String phone = rs.getString("phone");
         String email = rs.getString("email");
         String typeStr = rs.getString("type");
         UserType type = UserType.valueOf(typeStr);
-        return new User(id, username, firstname, surname, phone, email, type);
+        return new User(userID, firstname, surname, phone, email, type);
     }
 }
