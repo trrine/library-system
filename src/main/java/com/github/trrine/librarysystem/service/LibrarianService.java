@@ -5,7 +5,7 @@ import com.github.trrine.librarysystem.model.Book;
 import java.util.List;
 
 public interface LibrarianService {
-    void insertBook(Book book);
+    BookInsertionStatus insertBook(Book book);
 
     List<Book> listAllBooks();
 
@@ -13,7 +13,7 @@ public interface LibrarianService {
 
     List<Book> listAvailableBooks();
 
-    void changeBookStatus(int bookNo, String newStatus);
+    BookChangeStatus changeBookStatus(int bookNo, String newStatus);
 
-    void removeBook(int bookNo);
+    BookChangeStatus removeBook(int bookNo);
 }

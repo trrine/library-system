@@ -53,6 +53,26 @@ public class BookDaoImpl implements BookDao {
         return null;
     }
 
+    public Book getBookByBookIsbn(String isbn) {
+        String sql = "SELECT * FROM Book WHERE isbn=?";
+
+        try (Connection conn = DatabaseManager.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setString(1, isbn);
+            ResultSet rs = stmt.executeQuery();
+
+            // if a match is found, return a Book object
+            if (rs.next()) {
+                return createBookFromResultSet(rs);
+            }
+        } catch (SQLException e) {
+            System.err.println("Error retrieving book: " + e.getMessage());
+        }
+
+        return null;
+    }
+
     public List<Book> searchBooks(String isbn, String title, String author, String status) {
         List<Book> books = new ArrayList<>();
         String sql = "SELECT * FROM Book WHERE isbn LIKE ? AND title like ? AND author LIKE ? AND status LIKE ?";
