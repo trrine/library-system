@@ -52,6 +52,7 @@ public class LibrarianServiceImpl implements LibrarianService {
         return BookChangeStatus.SUCCESS;
     }
 
+    // note: consider what happens to records in Borrowing table
     public BookChangeStatus removeBook(int bookNo) {
         if (this.bookDao.getBookByBookNo(bookNo) == null) {
             return BookChangeStatus.BOOK_NOT_FOUND;
