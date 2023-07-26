@@ -11,5 +11,5 @@ public interface UserDao {
 
     void deleteUser(String userID);
 
-    boolean authenticateUser(String userID, String password);
+    User authenticateUser(String userID, String password);
 }

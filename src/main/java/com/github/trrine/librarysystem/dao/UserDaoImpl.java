@@ -99,7 +99,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public boolean authenticateUser(String userID, String password) {
+    public User authenticateUser(String userID, String password) {
         String sql = "SELECT password_hash FROM users WHERE userID=?";
 
         try (Connection connection = DatabaseManager.getConnection();
@@ -110,12 +110,19 @@ public class UserDaoImpl implements UserDao {
 
             if (rs.next()) {
                 String hashedPassword = rs.getString("password_hash");
-                return BCrypt.checkpw(password, hashedPassword);
+
+                if (passwordsMatch(password, hashedPassword)) {
+                    return this.getUserByUserID(userID);
+                }
             }
         } catch (SQLException e) {
             System.err.println("Error authenticating user: " + e.getMessage());
         }
-        return false;
+        return null;
+    }
+
+    private boolean passwordsMatch(String password, String hashedPassword) {
+        return BCrypt.checkpw(password, hashedPassword);
     }
 
     private User createUserFromResultSet(ResultSet rs) throws SQLException {
